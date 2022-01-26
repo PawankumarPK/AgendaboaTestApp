@@ -14,13 +14,7 @@ class _CounterPageTwoScaffoldState extends State<CounterPageTwoScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          backgroundColor: ConstantColors.screenBackgroundColor,
-          title: Text(ConstantStrings.counterPageTwo)
 
-      ),
     );;
   }
 }

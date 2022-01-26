@@ -1,9 +1,12 @@
 import 'package:agendaboa_flutter_app/res/constant_colors.dart';
 import 'package:agendaboa_flutter_app/res/constant_strings.dart';
+import 'package:agendaboa_flutter_app/res/dimens.dart';
 import 'package:agendaboa_flutter_app/screen/bottomNavBar/counter_page_one/counter_page_one_scaffold.dart';
 import 'package:agendaboa_flutter_app/screen/bottomNavBar/counter_page_two/counter_page_two_scaffold.dart';
 import 'package:agendaboa_flutter_app/utils/custom_objects.dart';
 import 'package:agendaboa_flutter_app/utils/exit_app_dialogbox.dart';
+import 'package:agendaboa_flutter_app/utils/size_config.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'counter_page_one/counter_page_one_scaffold.dart';
@@ -18,6 +21,7 @@ class BottomNavBarScaffold extends StatefulWidget {
 }
 
 class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
+  final dbReference = FirebaseDatabase.instance.reference();
 
   int selectedIndex = 0;
   late DateTime currentBackPressTime;
@@ -33,7 +37,6 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
     CounterPageOneScaffold(),
     CounterPageTwoScaffold(),
     CounterPageThreeScaffold()
-
   ];
 
   ///---- After click on nav bar item , selectedIndex value store in index value  ------
@@ -48,6 +51,29 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
     return WillPopScope(
       onWillPop: _onBackPressed,
       child: Scaffold(
+        appBar: AppBar(
+            centerTitle: false,
+            automaticallyImplyLeading: false,
+            backgroundColor: ConstantColors.screenBackgroundColor,
+            title: Text(
+              ConstantStrings.counterPageOne,
+            ),
+            actions: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(SizeConfig.defaultSize! * Dimens.size1),
+                child: MaterialButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    resetCounterValue();
+                  },
+                  child: const Text(
+                    'Reset ',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ]),
+
         ///------------ Show screen content in center & change selectedIndex value respectively -----------------
         body: Center(
           child: widgetOption.elementAt(selectedIndex),
@@ -74,7 +100,6 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.account_balance_wallet),
                   label: ConstantStrings.wallet),
-
             ],
             currentIndex: selectedIndex,
             selectedItemColor: ConstantColors.selectedColor,
@@ -85,9 +110,14 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
     );
   }
 
-
+  ///--------------------------- Exit backPress ------------------------
   Future<bool> _onBackPressed() async {
     return await showDialog(
         context: context, builder: (context) => ExitAppDialogBox());
+  }
+
+  ///--------------------------- Reset counter in db ------------------------
+  void resetCounterValue() {
+    dbReference.child("counterProfile").update({"counterOne": 0});
   }
 }

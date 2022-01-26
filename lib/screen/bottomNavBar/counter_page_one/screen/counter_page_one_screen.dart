@@ -1,7 +1,8 @@
-import 'package:agendaboa_flutter_app/res/constant_strings.dart';
 import 'package:agendaboa_flutter_app/res/dimens.dart';
 import 'package:agendaboa_flutter_app/utils/size_config.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class CounterPageOneScreen extends StatefulWidget {
   const CounterPageOneScreen({Key? key}) : super(key: key);
@@ -11,7 +12,19 @@ class CounterPageOneScreen extends StatefulWidget {
 }
 
 class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
+  final dbReference = FirebaseDatabase.instance.reference();
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    dbReference.child("counterProfile").child("counterOne").onValue.listen((event) {
+      setState(() {
+        _counter = event.snapshot.value;
+      });
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +34,6 @@ class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(
-              ConstantStrings.youHavePushedTheButtonThisManyTimes,
-            ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
@@ -37,7 +47,7 @@ class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
         child: Padding(
           padding: EdgeInsets.all(SizeConfig.defaultSize! * Dimens.size1),
           child: FloatingActionButton(
-            onPressed: _incrementCounter,
+            onPressed: incrementCounterValue,
             child: const Icon(Icons.add),
           ),
         ),
@@ -45,9 +55,26 @@ class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
     ]);
   }
 
-  void _incrementCounter() {
+  ///--------------------------- Counter increment function ------------------------
+  void incrementCounterValue() {
     setState(() {
       _counter++;
+      updateCounterValue();
     });
   }
+
+  ///--------------------------- Create db with fields ------------------------
+  void _createDB() {
+    dbReference.child("counterProfile").set({
+      "counterOne": 0,
+      "counterTwo": 0,
+      "counterThree": 0
+    });
+  }
+
+  ///--------------------------- Update counter in db ------------------------
+  updateCounterValue() {
+    dbReference.child("counterProfile").update({"counterOne": _counter});
+  }
+
 }

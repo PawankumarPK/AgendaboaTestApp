@@ -13,13 +13,7 @@ class _CounterPageThreeScaffoldState extends State<CounterPageThreeScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-          backgroundColor: ConstantColors.screenBackgroundColor,
-          title: Text(ConstantStrings.counterPageThree)
 
-      ),
     );
   }
 }
