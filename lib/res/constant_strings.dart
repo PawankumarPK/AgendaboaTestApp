@@ -8,5 +8,6 @@ class ConstantStrings {
   static var counterPageOne = "Counter Page One";
   static var counterPageTwo = "Counter Page Two";
   static var counterPageThree = "Counter Page Three";
+  static var youHavePushedTheButtonThisManyTimes = "You have pushed the button this many times:";
 
 }
