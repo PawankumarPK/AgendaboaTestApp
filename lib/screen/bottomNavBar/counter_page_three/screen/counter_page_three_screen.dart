@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CounterPageThreeScreen extends StatefulWidget {
-  const CounterPageThreeScreen({Key? key}) : super(key: key);
+class CounterPageOneScreen extends StatefulWidget {
+  const CounterPageOneScreen({Key? key}) : super(key: key);
 
   @override
-  _CounterPageThreeScreenState createState() => _CounterPageThreeScreenState();
+  _CounterPageOneScreenState createState() => _CounterPageOneScreenState();
 }
 
-class _CounterPageThreeScreenState extends State<CounterPageThreeScreen> {
+class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
   @override
   Widget build(BuildContext context) {
     return Container();
