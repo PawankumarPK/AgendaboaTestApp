@@ -16,7 +16,7 @@ class _CounterPageOneScaffoldState extends State<CounterPageOneScaffold> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
+    return const Scaffold(
       body: CounterPageOneScreen(),
     );
   }

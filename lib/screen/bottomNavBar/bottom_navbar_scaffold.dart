@@ -119,5 +119,8 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
   ///--------------------------- Reset counter in db ------------------------
   void resetCounterValue() {
     dbReference.child("counterProfile").update({"counterOne": 0});
+    dbReference.child("counterProfile").update({"counterTwo": 0});
+    dbReference.child("counterProfile").update({"counterThree": 0});
+
   }
 }
