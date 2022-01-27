@@ -36,7 +36,7 @@ class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_counter',
+              'Counter: $_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],

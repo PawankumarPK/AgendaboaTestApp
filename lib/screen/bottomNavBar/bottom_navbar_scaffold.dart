@@ -3,12 +3,9 @@ import 'package:agendaboa_flutter_app/res/constant_strings.dart';
 import 'package:agendaboa_flutter_app/res/dimens.dart';
 import 'package:agendaboa_flutter_app/screen/bottomNavBar/counter_page_one/counter_page_one_scaffold.dart';
 import 'package:agendaboa_flutter_app/screen/bottomNavBar/counter_page_two/counter_page_two_scaffold.dart';
-import 'package:agendaboa_flutter_app/utils/custom_objects.dart';
-import 'package:agendaboa_flutter_app/utils/exit_app_dialogbox.dart';
 import 'package:agendaboa_flutter_app/utils/size_config.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-
 import 'counter_page_one/counter_page_one_scaffold.dart';
 import 'counter_page_three/counter_page_three_scaffold.dart';
 import 'counter_page_two/counter_page_two_scaffold.dart';
@@ -25,12 +22,6 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
 
   int selectedIndex = 0;
   late DateTime currentBackPressTime;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedIndex = CustomObjects.activeBottomNavBar;
-  }
 
   ///------------------ List of screen --------------------------------
   List<Widget> widgetOption = <Widget>[
@@ -50,7 +41,8 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
+      ///--------------- App Bar With Reset Button ---------------------------
+    appBar: AppBar(
           centerTitle: false,
           automaticallyImplyLeading: false,
           backgroundColor: ConstantColors.screenBackgroundColor,
@@ -89,19 +81,19 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: const Icon(Icons.home),
-              label: ConstantStrings.home,
+              icon: const Icon(Icons.circle),
+              label: ConstantStrings.counter1,
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.group),
-              label: ConstantStrings.tournaments,
+              icon: const Icon(Icons.circle),
+              label: ConstantStrings.counter2,
             ),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.account_balance_wallet),
-                label: ConstantStrings.wallet),
+                icon: const Icon(Icons.circle),
+                label: ConstantStrings.counter3),
           ],
           currentIndex: selectedIndex,
-          selectedItemColor: ConstantColors.selectedColor,
+          selectedItemColor: Colors.white,
           onTap: onItemTap,
         ),
       ),

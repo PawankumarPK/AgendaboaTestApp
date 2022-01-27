@@ -1,5 +1,3 @@
-import 'package:agendaboa_flutter_app/res/constant_colors.dart';
-import 'package:agendaboa_flutter_app/res/constant_strings.dart';
 import 'package:agendaboa_flutter_app/screen/bottomNavBar/counter_page_two/screen/counter_page_two_screen.dart';
 import 'package:flutter/material.dart';
 

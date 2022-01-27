@@ -34,7 +34,7 @@ class _CounterPageTwoScreenState extends State<CounterPageTwoScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_counter',
+              'Counter: $_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
