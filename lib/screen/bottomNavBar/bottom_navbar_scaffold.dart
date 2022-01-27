@@ -34,9 +34,9 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
 
   ///------------------ List of screen --------------------------------
   List<Widget> widgetOption = <Widget>[
-    CounterPageOneScaffold(),
-    CounterPageTwoScaffold(),
-    CounterPageThreeScaffold()
+    const CounterPageOneScaffold(),
+    const CounterPageTwoScaffold(),
+    const CounterPageThreeScaffold()
   ];
 
   ///---- After click on nav bar item , selectedIndex value store in index value  ------
@@ -48,72 +48,64 @@ class _BottomNavBarScaffoldState extends State<BottomNavBarScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onBackPressed,
-      child: Scaffold(
-        appBar: AppBar(
-            centerTitle: false,
-            automaticallyImplyLeading: false,
-            backgroundColor: ConstantColors.screenBackgroundColor,
-            title: Text(
-              ConstantStrings.counterPageOne,
-            ),
-            actions: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(SizeConfig.defaultSize! * Dimens.size1),
-                child: MaterialButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    resetCounterValue();
-                  },
-                  child: const Text(
-                    'Reset ',
-                    style: TextStyle(color: Colors.white),
-                  ),
+    SizeConfig().init(context);
+    return Scaffold(
+      appBar: AppBar(
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          backgroundColor: ConstantColors.screenBackgroundColor,
+          title: Text(
+            ConstantStrings.counterApp,
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(SizeConfig.defaultSize! * Dimens.size1),
+              child: MaterialButton(
+                color: Colors.blue,
+                onPressed: () {
+                  resetCounterValue();
+                },
+                child: Text(
+                  ConstantStrings.reset,
+                  style: const TextStyle(color: Colors.white),
                 ),
               ),
-            ]),
+            ),
+          ]),
 
-        ///------------ Show screen content in center & change selectedIndex value respectively -----------------
-        body: Center(
-          child: widgetOption.elementAt(selectedIndex),
+      ///------------ Show screen content in center & change selectedIndex value respectively -----------------
+      body: Center(
+        child: widgetOption.elementAt(selectedIndex),
+      ),
+
+      ///--------------- Change theme of BottomNavBar ---------------------------
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.blue,
         ),
 
-        ///--------------- Change theme of BottomNavBar ---------------------------
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: ConstantColors.secondaryColor,
-          ),
-
-          ///--------------- BottomNavBar with icon and label ---------------------------
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: ConstantStrings.home,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.group),
-                label: ConstantStrings.tournaments,
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_balance_wallet),
-                  label: ConstantStrings.wallet),
-            ],
-            currentIndex: selectedIndex,
-            selectedItemColor: ConstantColors.selectedColor,
-            onTap: onItemTap,
-          ),
+        ///--------------- BottomNavBar with icon and label ---------------------------
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: ConstantStrings.home,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.group),
+              label: ConstantStrings.tournaments,
+            ),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.account_balance_wallet),
+                label: ConstantStrings.wallet),
+          ],
+          currentIndex: selectedIndex,
+          selectedItemColor: ConstantColors.selectedColor,
+          onTap: onItemTap,
         ),
       ),
     );
-  }
-
-  ///--------------------------- Exit backPress ------------------------
-  Future<bool> _onBackPressed() async {
-    return await showDialog(
-        context: context, builder: (context) => ExitAppDialogBox());
   }
 
   ///--------------------------- Reset counter in db ------------------------

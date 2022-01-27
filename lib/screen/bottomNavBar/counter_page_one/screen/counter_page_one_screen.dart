@@ -19,10 +19,11 @@ class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
   void initState() {
     super.initState();
     dbReference.child("counterProfile").child("counterOne").onValue.listen((event) {
-      setState(() {
-        _counter = event.snapshot.value;
-      });
-
+      if(mounted) {
+        setState(() {
+          _counter = event.snapshot.value;
+        });
+      }
     });
   }
 
@@ -41,6 +42,8 @@ class _CounterPageOneScreenState extends State<CounterPageOneScreen> {
           ],
         ),
       ),
+
+      ///--------------------------- Floating Button ------------------------
       Positioned(
         right: 1,
         bottom: 1,
